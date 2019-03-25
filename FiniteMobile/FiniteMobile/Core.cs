@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FiniteMobile.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,28 +8,25 @@ namespace FiniteMobile
 {
     class Core
     {
-        public async Task<IEnumerable<Account>> GetAccounts()
+        public async Task<IEnumerable<Household>> GetHouseholds()
         {
-            string queryString = "https://finiteapi.azurewebsites.net/api/Test/GetAccount";
+            string queryString = "https://finiteapi.azurewebsites.net/api/Test/GetHouseholds";
 
             dynamic results = await DataService.getDataFromService(queryString).ConfigureAwait(false);
-            var accounts = new List<Account>();
-            if (results["Account"] != null)
+            var Households = new List<Household>();
+            if (results["Household"] != null)
             {
                 foreach (var result in results)
                 {
-                    var account = new Account()
+                    var house = new Household()
                     {
                         Id = result.Id,
-                        HouseholdId = result.HouseholdId,
                         Name = results.Name,
-                        InitialBalance = result.InitialBalance,
-                        CurrentBalance = result.CurrentBalance,
-                        LowBalanceLevel = result.LowBalanceLevel
+                        Greeting = results.Greeting,
                     };
-                    accounts.Add(account);
+                    Households.Add(house);
                 }
-                return accounts;
+                return Households;
             }
 
             else { return null; }

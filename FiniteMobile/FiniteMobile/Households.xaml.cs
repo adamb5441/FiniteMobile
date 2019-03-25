@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-
+using FiniteMobile;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,12 +12,9 @@ namespace FiniteMobile
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Households : ContentPage
     {
-        public ObservableCollection<string> Items { get; set; }
-
-        public Households()
+        public async void getHouseholds()
         {
             InitializeComponent();
-            BindingContext = this;
 
 
             //Items = new ObservableCollection<string>
@@ -28,8 +25,9 @@ namespace FiniteMobile
             //    "Item 4",
             //    "Item 5"
             //};
-
-            //MyListView.ItemsSource = Items;
+            Core core = new Core();
+            var houses = await core.GetHouseholds();
+            MyListView.ItemsSource = houses;
         }
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
