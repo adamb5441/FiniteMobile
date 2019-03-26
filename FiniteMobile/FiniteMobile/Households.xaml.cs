@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using FiniteMobile;
+using FiniteMobile.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,11 +13,15 @@ namespace FiniteMobile
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Households : ContentPage
     {
-        public async void getHouseholds()
+
+        public Households()
         {
             InitializeComponent();
+            getHouseholdsbtn.Clicked += getHouseholds;
 
-
+        }
+        public async void getHouseholds(object sender, EventArgs e)
+        {
             //Items = new ObservableCollection<string>
             //{
             //    "Item 1",
@@ -35,10 +40,11 @@ namespace FiniteMobile
             if (e.Item == null)
                 return;
 
-            await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
+            var id = ((Household)e.Item).Id;
 
-            //Deselect Item
-            ((ListView)sender).SelectedItem = null;
+            Core core = new Core();
+            var accounts = await core.GetAccounts(id);
+            await Navigation.PushModalAsync(new NavigationPage(new Accounts(accounts)));
         }
     }
 }

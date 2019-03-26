@@ -1,8 +1,10 @@
 ﻿using FiniteMobile.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms.Internals;
 
 namespace FiniteMobile
 {
@@ -12,24 +14,40 @@ namespace FiniteMobile
         {
             string queryString = "https://finiteapi.azurewebsites.net/api/Test/GetHouseholds";
 
-            dynamic results = await DataService.getDataFromService(queryString).ConfigureAwait(false);
-            var Households = new List<Household>();
-            if (results["Household"] != null)
+            try
             {
-                foreach (var result in results)
+                dynamic results = await DataService.getDataFromService(queryString).ConfigureAwait(false);
+                if(results != null)
                 {
-                    var house = new Household()
-                    {
-                        Id = result.Id,
-                        Name = results.Name,
-                        Greeting = results.Greeting,
-                    };
-                    Households.Add(house);
+                    var data = JsonConvert.DeserializeObject<List<Household>>(results.ToString());
+                    return data;
                 }
-                return Households;
             }
+            catch(Exception ex)
+            {
+                Log.Warning("Exception", ex.Message);
+            }
+            return null;
+        }
 
-            else { return null; }
+        public async Task<IEnumerable<Account>> GetAccounts(int id)
+        {
+            string queryString = "https://finiteapi.azurewebsites.net/api/Test/GetAccounts?id=" + id.ToString();
+
+            try
+            {
+                dynamic results = await DataService.getDataFromService(queryString).ConfigureAwait(false);
+                if (results != null)
+                {
+                    var data = JsonConvert.DeserializeObject<List<Account>>(results.ToString());
+                    return data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Warning("Exception", ex.Message);
+            }
+            return null;
         }
     }
 }

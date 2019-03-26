@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FiniteMobile
 {
-    class Account
+    public class Account
     {
         public int Id { get; set; }
         public int? HouseholdId { get; set; }
