@@ -22,14 +22,7 @@ namespace FiniteMobile
         }
         public async void getHouseholds(object sender, EventArgs e)
         {
-            //Items = new ObservableCollection<string>
-            //{
-            //    "Item 1",
-            //    "Item 2",
-            //    "Item 3",
-            //    "Item 4",
-            //    "Item 5"
-            //};
+            
             Core core = new Core();
             var houses = await core.GetHouseholds();
             MyListView.ItemsSource = houses;
@@ -44,7 +37,8 @@ namespace FiniteMobile
 
             Core core = new Core();
             var accounts = await core.GetAccounts(id);
-            await Navigation.PushModalAsync(new NavigationPage(new Accounts(accounts)));
+
+            await Navigation.PushAsync(new Accounts(accounts));
         }
     }
 }

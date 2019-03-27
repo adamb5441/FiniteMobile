@@ -18,19 +18,13 @@ namespace FiniteMobile
         public Accounts(IEnumerable<Account> list)
         {
             InitializeComponent();
-			
-			MyListView.ItemsSource = list;
+            NavigationPage.SetHasBackButton(this, true);
+            
+            MyListView.ItemsSource = list;
         }
-
-        async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        private async void Voltar(object sender, EventArgs e)
         {
-            if (e.Item == null)
-                return;
-
-            await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
-
-            //Deselect Item
-            ((ListView)sender).SelectedItem = null;
+            await Navigation.PopModalAsync();
         }
     }
 }

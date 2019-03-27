@@ -11,7 +11,7 @@ namespace FiniteMobile
         {
             InitializeComponent();
 
-            MainPage = new Households();
+            MainPage = new NavigationPage(new Households());
         }
 
         protected override void OnStart()

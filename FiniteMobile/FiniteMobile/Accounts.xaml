@@ -4,30 +4,39 @@
              x:Class="FiniteMobile.Accounts">
   <ListView x:Name="MyListView"
             ItemsSource="{Binding Account}"
-            ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement">
             
-    <!--Built in Cells-->
     <ListView.ItemTemplate>
         <DataTemplate>
-            <TextCell Text="{Binding Name}" />
-        </DataTemplate>
+                <ViewCell>
+                    <StackLayout Spacing="20" Padding="15">
+
+                        <Grid Padding="15,0,15,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                         <Label Text="{Binding Name}" 
+                                Grid.Row="0" Grid.Column="0"
+                        Style="{DynamicResource ListItemTextStyle}" />
+                            <Label Text="{Binding CurrentBalance, Mode=OneWay, StringFormat='${0}'} " 
+                               Grid.Row="2" Grid.Column="0"
+                        Style="{DynamicResource ListItemDetailTextStyle}" />
+                            <Label Text="{Binding LowBalanceLevel, Mode=OneWay, StringFormat='Alert: {0}'}" 
+                               Grid.Row="0" Grid.Column="1"
+                        Style="{DynamicResource ListItemDetailTextStyle}"/>
+                        </Grid>
+                    </StackLayout>
+                    
+                </ViewCell>
+            </DataTemplate>
     </ListView.ItemTemplate>
     
-    <!--Custom View Cells-->
-    <!--
-    <ListView.ItemTemplate>
-      <DataTemplate>
-        <ViewCell>
-          <StackLayout>
-            <Label Text="{Binding Text}" 
-                   Style="{DynamicResource ListItemTextStyle}" />
-            <Label Text="{Binding Detail}" 
-                   Style="{DynamicResource ListItemDetailTextStyle}"/>
-          </StackLayout>
-        </ViewCell>
-      </DataTemplate>
-    </ListView.ItemTemplate>
-    -->
   </ListView>
 </ContentPage>
