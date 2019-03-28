@@ -17,6 +17,7 @@ namespace FiniteMobile
         public Households()
         {
             InitializeComponent();
+            this.Title = "Finite";
             getHouseholdsbtn.Clicked += getHouseholds;
 
         }

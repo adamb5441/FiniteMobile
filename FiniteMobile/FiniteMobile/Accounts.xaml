@@ -4,7 +4,8 @@
              x:Class="FiniteMobile.Accounts">
   <ListView x:Name="MyListView"
             ItemsSource="{Binding Account}"
-            CachingStrategy="RecycleElement">
+            CachingStrategy="RecycleElement"
+            HasUnevenRows="True">
             
     <ListView.ItemTemplate>
         <DataTemplate>

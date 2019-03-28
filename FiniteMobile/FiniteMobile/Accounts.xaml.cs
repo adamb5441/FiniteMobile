@@ -18,6 +18,7 @@ namespace FiniteMobile
         public Accounts(IEnumerable<Account> list)
         {
             InitializeComponent();
+            this.Title = "Finite";
             NavigationPage.SetHasBackButton(this, true);
             
             MyListView.ItemsSource = list;
